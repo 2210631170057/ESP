@@ -1,0 +1,33 @@
+#include <DHT.h>
+
+#define DHTPIN 4
+#define DHTTYPE DHT22
+#define LDRPIN 39
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(115200);
+  dht.begin();
+}
+
+void loop() {
+  // Baca suhu dan kelembaban dari sensor DHT22
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+
+  // Baca nilai analog dari sensor LDR
+  int ldrValue = analogRead(LDRPIN);
+
+  // Tampilkan nilai suhu, kelembaban, dan intensitas cahaya
+  Serial.print("Humidity: ");
+  Serial.print(h);
+  Serial.print(" %\t");
+  Serial.print("Temperature: ");
+  Serial.print(t);
+  Serial.print(" *C\t");
+  Serial.print("Light Intensity (LDR): ");
+  Serial.println(ldrValue);
+
+  delay(2000);
+}
